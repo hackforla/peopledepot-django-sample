@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People Depot Client Simple Site</title>
+</head>
+<body>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <h1>Welcome, {{ user.username }}!</h1>
+        {% if user.email %}
+            <p>Email: {{ user.email }}</p>
+        {% endif %}
+        <form action="{% url 'account_logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Sign Out</button>
+        </form>
+    {% else %}
+        <h1>People Depot Client Simple Site</h1>
+        <p><a href="{% url 'account_login' %}">Sign In</a></p>
+    {% endif %}
+</body>
+</html>
